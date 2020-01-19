@@ -19,12 +19,12 @@ export default class Upload extends Vue {
   // this runs when the component is loaded
   mounted() {
     var fileCatcher = document.getElementById("file-catcher");
-
     var soundFileInput = document.getElementById("sound_files");
     var fileListDisplay = document.getElementById("file-list-display");
     var soundFileList = [];
     var renderFileList, sendFile;
 
+    //When submit is pressed, call send function for each selected file
     fileCatcher.addEventListener("submit", function(evnt) {
       evnt.preventDefault();
       soundFileList.forEach(function(file) {
@@ -32,6 +32,7 @@ export default class Upload extends Vue {
       });
     });
 
+    //Any time a sound file is uploaded, add it to the list of uploaded sound files and display the name of the file below
     soundFileInput.addEventListener("change", function(evnt) {
       soundFileList = [];
       for (var i = 0; i < soundFileInput.files.length; i++) {
@@ -40,6 +41,7 @@ export default class Upload extends Vue {
       renderFileList();
     });
 
+    //Displays the names of each of the sound files uploaded
     renderFileList = function() {
       fileListDisplay.innerHTML = "";
       soundFileList.forEach(function(file, index) {
@@ -49,6 +51,7 @@ export default class Upload extends Vue {
       });
     };
 
+    //Makes the POST requests for each file
     sendFile = function(file) {
       var formData = new FormData();
       var request = new XMLHttpRequest();
