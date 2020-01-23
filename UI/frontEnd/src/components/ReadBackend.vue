@@ -16,7 +16,7 @@ export default class Wave extends Vue {
 
   testMethod() {
     Vue.axios
-      .get("http://localhost:3000/classify/responseExample")
+      .get("http://localhost:3000/classify/responseExample", {})
       .then(function(response) {
         console.log(response.data);
       })
