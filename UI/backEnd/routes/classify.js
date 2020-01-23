@@ -18,11 +18,25 @@ router.get('/exampleProcess', function(req, res, next) {
   });
 });
 
-/* GET example process. 
+/* POST upload sound. 
    This demonstrates how a the upload sound route can be reached */
    router.post('/uploadSound', function(req, res, next) {
      console.log("Upload Sound Route Reached");
     res.send("Hello World");
   });
+
+/* POST response example. 
+   This demonstrates how a the upload sound route can be reached */
+   router.get('/responseExample', function(req, res, next) {
+    exampleJSON = {};
+    exampleJSON.fileName = "testFile.wav";
+    exampleJSON.success = true;
+    exampleJSON.results = {
+      0: {classification: "cardinal", timeStart: 5, timeEnd:10},
+      1: {classification: "blue jay", timeStart: 13, timeEnd:20},
+      2: {classification: "cardinal", timeStart: 31, timeEnd:37}
+    };
+   res.json(exampleJSON);
+ });
 
 module.exports = router;
