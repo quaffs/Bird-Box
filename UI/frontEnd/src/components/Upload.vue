@@ -46,18 +46,19 @@ export default class Upload extends Vue {
       fileListDisplay.innerHTML = "";
       soundFileList.forEach(function(file, index) {
         var fileDisplayEl = document.createElement("p");
-        fileDisplayEl.innerHTML = "Sound File " + (index + 1) + ": " + file.name;
+        fileDisplayEl.innerHTML =
+          "Sound File " + (index + 1) + ": " + file.name;
         fileListDisplay.appendChild(fileDisplayEl);
       });
     };
 
     //Makes the POST requests for each file
-    sendFile = function(file) {
+    sendFile = function(file: File) {
       var formData = new FormData();
       var request = new XMLHttpRequest();
 
-      formData.set("file", file);
-      request.open("POST", "localhost:3000");
+      formData.append("file", file);
+      request.open("POST", "http://localhost:3000/classify/uploadSound");
       request.send(formData);
     };
   }

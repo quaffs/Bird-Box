@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
+/* GET classify listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
@@ -17,5 +17,12 @@ router.get('/exampleProcess', function(req, res, next) {
     res.send(data.toString());
   });
 });
+
+/* GET example process. 
+   This demonstrates how a the upload sound route can be reached */
+   router.post('/uploadSound', function(req, res, next) {
+     console.log("Upload Sound Route Reached");
+    res.send("Hello World");
+  });
 
 module.exports = router;
