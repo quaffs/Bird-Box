@@ -1,4 +1,9 @@
+import os 
 import mysql.connector as mysql
+
+wav_files = os.listdir("/Users/johnminhdo/Desktop/Bird-Box/Cardinal Calls")
+wav_files = sorted(wav_files)
+
 
 def convertToBinaryData(filename):
     with open(filename, 'rb') as file:
@@ -18,6 +23,7 @@ def insertBLOB(name, audio):
     cursor = db.cursor()
 
     query = "INSERT INTO bird_audio (name, audio) VALUES (%s, %s)"
+    
 
     audio_file = convertToBinaryData(audio)
 
@@ -30,7 +36,12 @@ def insertBLOB(name, audio):
 
     print("It is completed!")
 
-insertBLOB("cardinal", "/Users/johnminhdo/Downloads/cardinal.mp3")
 
+# for files in wav_files:
+#     print(files)
+#     insertBLOB("cardinal" + files[14:18] , "/Users/johnminhdo/Desktop/Bird-Box/Cardinal Calls/" + files)
+
+
+insertBLOB("cardinal", "/Users/johnminhdo/Downloads/cardinal.mp3")
 
 
