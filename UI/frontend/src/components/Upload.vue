@@ -1,7 +1,7 @@
 <template>
   <div class="wave">
+    <h3>Upload Your Bird Calls Here:</h3>
     <form id="file-catcher">
-      <h3>Upload Your Bird Calls Here:</h3>
       <input id="sound_files" type="file" multiple />
       <button type="submit">
         Submit
@@ -19,13 +19,17 @@ export default class Upload extends Vue {
   // this runs when the component is loaded
   mounted() {
     var fileCatcher = document.getElementById("file-catcher");
-    var soundFileInput = document.getElementById("sound_files");
+    var soundFileInput = document.getElementById(
+      "sound_files"
+    ) as HTMLInputElement;
     var fileListDisplay = document.getElementById("file-list-display");
-    var soundFileList = [];
-    var renderFileList, sendFile;
+    //var soundFileList = [];
+    let soundFileList: Array<any>;
+    //var renderFileList
+    //var sendFile
 
     //When submit is pressed, call send function for each selected file
-    fileCatcher.addEventListener("submit", function(evnt) {
+    fileCatcher!.addEventListener("submit", function(evnt) {
       evnt.preventDefault();
       soundFileList.forEach(function(file) {
         sendFile(file);
@@ -33,33 +37,34 @@ export default class Upload extends Vue {
     });
 
     //Any time a sound file is uploaded, add it to the list of uploaded sound files and display the name of the file below
-    soundFileInput.addEventListener("change", function(evnt) {
+    soundFileInput!.addEventListener("change", function(evnt) {
       soundFileList = [];
-      for (var i = 0; i < soundFileInput.files.length; i++) {
-        soundFileList.push(soundFileInput.files[i]);
+      for (var i = 0; i < soundFileInput!.files!.length; i++) {
+        soundFileList.push(soundFileInput!.files![i]);
       }
       renderFileList();
     });
 
     //Displays the names of each of the sound files uploaded
-    renderFileList = function() {
-      fileListDisplay.innerHTML = "";
+    function renderFileList() {
+      fileListDisplay!.innerHTML = "";
       soundFileList.forEach(function(file, index) {
         var fileDisplayEl = document.createElement("p");
-        fileDisplayEl.innerHTML = "Sound File " + (index + 1) + ": " + file.name;
-        fileListDisplay.appendChild(fileDisplayEl);
+        fileDisplayEl.innerHTML =
+          "Sound File " + (index + 1) + ": " + file.name;
+        fileListDisplay!.appendChild(fileDisplayEl);
       });
-    };
+    }
 
     //Makes the POST requests for each file
-    sendFile = function(file) {
+    function sendFile(file: File) {
       var formData = new FormData();
       var request = new XMLHttpRequest();
 
       formData.set("file", file);
       request.open("POST", "localhost:3000");
       request.send(formData);
-    };
+    }
   }
 }
 </script>
