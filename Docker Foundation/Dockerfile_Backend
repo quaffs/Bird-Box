@@ -1,0 +1,21 @@
+FROM node:10.18.1
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+RUN npm install -g nodemon 
+
+RUN npm config set registry https://registry.npmjs.org
+
+COPY package.json /app/package.json
+
+RUN npm install 
+
+COPY . /app
+
+ENV PORT 8080
+
+EXPOSE 8080
+
+CMD ["node", "app.js"]
