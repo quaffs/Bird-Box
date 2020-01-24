@@ -23,10 +23,7 @@ export default class Upload extends Vue {
       "sound_files"
     ) as HTMLInputElement;
     var fileListDisplay = document.getElementById("file-list-display");
-    //var soundFileList = [];
     let soundFileList: Array<any>;
-    //var renderFileList
-    //var sendFile
 
     //When submit is pressed, call send function for each selected file
     fileCatcher!.addEventListener("submit", function(evnt) {
