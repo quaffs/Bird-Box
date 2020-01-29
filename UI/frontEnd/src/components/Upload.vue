@@ -2,7 +2,12 @@
   <div class="wave">
     <form id="file-catcher">
       <h3>Upload Your Bird Calls Here:</h3>
-      <input id="sound_files" type="file" multiple />
+      <label>Microphone 1:  </label>
+      <input id="sound_file1" type="file" />
+      <label>Microphone 2:  </label>
+      <input id="sound_file2" type="file" />
+      <label>Microphone 3:  </label>
+      <input id="sound_file2" type="file" />
       <button type="submit">
         Submit
       </button>
@@ -19,7 +24,10 @@ export default class Upload extends Vue {
   // this runs when the component is loaded
   mounted() {
     var fileCatcher = document.getElementById("file-catcher");
-    var soundFileInput = document.getElementById("sound_files");
+    var soundFileInput = document.getElementById("sound_file1");
+    var soundFileInput2 = document.getElementById("sound_file2");
+    var soundFileInput3 = document.getElementById("sound_file3");
+
     var fileListDisplay = document.getElementById("file-list-display");
     var soundFileList = [];
     var renderFileList, sendFile;
@@ -37,6 +45,13 @@ export default class Upload extends Vue {
       soundFileList = [];
       for (var i = 0; i < soundFileInput.files.length; i++) {
         soundFileList.push(soundFileInput.files[i]);
+        alert("IT GOT HERE " + soundFileList);
+      }
+      for (var j = 0; j < soundFileInput2.files.length; j++){
+        soundFileList.push(soundFileInput2.files[j]);
+      }
+      for (var k = 0; k < soundFileInput3.files.length; k++){
+        soundFileList.push(soundFileInput3.files[k]);
       }
       renderFileList();
     });
