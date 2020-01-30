@@ -16,12 +16,12 @@ export default class Wave extends Vue {
 
   testMethod() {
     Vue.axios
-      .get("http://localhost:3000/classify/responseExample", {})
-      .then(function(response) {
-        console.log(response.data);
+      .post("http://localhost:3000/classify/responseExample", {
+        name: "Brady",
+        message: "Hello World"
       })
-      .catch(function(error) {
-        console.log(error);
+      .then(function(res) {
+        console.log(res);
       });
   }
 }
