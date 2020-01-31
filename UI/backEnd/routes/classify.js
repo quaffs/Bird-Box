@@ -1,5 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+var shortid = require('shortid');
+var spawn = require("child_process").spawn;
+
+var audioInputDir = "./public/audio/";
 
 /* GET classify listing. */
 router.get('/', function (req, res, next) {
@@ -21,8 +26,28 @@ router.get('/exampleProcess', function (req, res, next) {
 /* POST upload sound. 
    This demonstrates how a the upload sound route can be reached */
 router.post('/uploadSound', function (req, res, next) {
-  console.log("Upload Sound Route Reached");
-  res.send("Hello World");
+  var id = shortid.generate(); // id for process
+  console.log(`Upload Sound Route Reached (id: ${id})`);
+  // audio file should be saved locally
+  var curAudioDir = audioInputDir + id;
+  if (!fs.existsSync(curAudioDir))
+    fs.mkdirSync(curAudioDir);
+  fileName = "CardinalCallTest.wav";
+  // create process to segment audio into 10 second segments
+  var processData, processError;
+  var process = spawn('ffmpeg', ["-i", audioInputDir + fileName, "-f", "segment", "-segment_time", "10", "-c", "copy", curAudioDir + "out%03d.wav"]);
+  process.stdout.on('data', function (data) {
+    processData = data.toString();
+  });
+  process.stderr.on('data', function (error) {
+    processError = error.toString();
+  });
+  process.stdout.on('end', function () {
+    res.json({
+      data: processData,
+      error: processError
+    });
+  });
 });
 
 /* POST response example. 
