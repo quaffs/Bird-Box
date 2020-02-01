@@ -1,7 +1,7 @@
 <template>
   <div class="read-backend">
     <button v-on:click="testMethod">TEST!</button>
-    <div id="response-list-display"></div>
+    <p id="response-list-display"></p>
   </div>
 </template>
 
@@ -31,9 +31,9 @@ export default class Wave extends Vue {
         // For each "result" inside of results, add it to results array
         for (var i = 0; i < Object.keys(response.data.results).length; i++) {
           uploadResultsArray.push(
-            " <br><br>Result " +
+            '<p class="borderexample"><u>Result ' +
               (i + 1) +
-              ": " +
+              ":</u> " +
               "<br>Classification: " +
               response.data.results[i].classification +
               " " +
@@ -41,14 +41,16 @@ export default class Wave extends Vue {
               response.data.results[i].timeStart +
               " " +
               "<br>Time End: " +
-              response.data.results[i].timeEnd
+              response.data.results[i].timeEnd +
+              "</p> "
           );
         }
         // Display Respose on Screen
         responseListDisplay!.innerHTML =
-          "<br>File Name: " +
+          '<br><font size="5">File Name: </font>' +
+          '<p class="borderexample">' +
           fileName +
-          "<br><br>Final Results: " +
+          '</p><br><br><font size="5">Final Results: </font><br>' +
           uploadResultsArray.join("");
       })
       .catch(function(error) {
@@ -57,3 +59,14 @@ export default class Wave extends Vue {
   }
 }
 </script>
+
+<style>
+.borderexample {
+  border-style: solid;
+  border-color: #287ec7;
+  display: inline-block;
+  border-width: thick;
+  padding: 1%;
+  background-color: lightblue;
+}
+</style>
