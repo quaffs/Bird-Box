@@ -8,6 +8,7 @@
       </button>
     </form>
     <div id="file-list-display"></div>
+    <div id="response-list-display"></div>
   </div>
 </template>
 
@@ -23,7 +24,9 @@ export default class Upload extends Vue {
       "sound_files"
     ) as HTMLInputElement;
     var fileListDisplay = document.getElementById("file-list-display");
+    var responseListDisplay = document.getElementById("response-list-display");
     let soundFileList: Array<any>;
+    let responseList: Array<any>;
 
     //When submit is pressed, call send function for each selected file
     fileCatcher!.addEventListener("submit", function(evnt) {
@@ -31,11 +34,22 @@ export default class Upload extends Vue {
       soundFileList.forEach(function(file) {
         sendFile(file);
       });
+      renderResponseList();
     });
+
+    //Parses and Displays JSON Response
+    function renderResponseList() {
+      var testResponse = '{ "name":"John", "age":30, "city":"New York"}';
+      var newTestResponse = JSON.parse(testResponse);
+      var fileDisplayE2 = document.createElement("p");
+      fileDisplayE2.innerHTML = "Result:" + newTestResponse.name;
+      responseListDisplay!.appendChild(fileDisplayE2);
+    }
 
     //Any time a sound file is uploaded, add it to the list of uploaded sound files and display the name of the file below
     soundFileInput!.addEventListener("change", function(evnt) {
       soundFileList = [];
+      responseList = [];
       for (var i = 0; i < soundFileInput!.files!.length; i++) {
         soundFileList.push(soundFileInput!.files![i]);
       }
