@@ -23,6 +23,13 @@ router.get('/exampleProcess', function (req, res, next) {
   });
 });
 
+/* Post upload form */
+router.post('/uploadForm', function(req, res, next) {
+  console.log("Hit upload form route");
+  console.log(req.body);
+  res.send("Thanks for visiting route. Hello again");
+});
+
 /* POST upload sound. 
    This demonstrates how a the upload sound route can be reached */
 router.post('/uploadSound', function (req, res, next) {

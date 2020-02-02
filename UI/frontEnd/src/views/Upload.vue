@@ -1,6 +1,6 @@
 <template>
   <div class="test">
-    <h1>This is the upload page</h1>
+    <h1>Sound File Upload</h1>
     <UploadForm />
   </div>
 </template>
