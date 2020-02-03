@@ -1,1 +1,57 @@
-Distance/Direction /Algo
+#Distance/Direction /Algo
+#BACKUP
+
+
+# libraries
+from matplotlib import pyplot as plt
+import numpy as np
+from matplotlib_venn import venn3, venn3_circles
+
+
+MicA = False
+MicB = True
+MicC = True
+
+# Make a Basic 3Venn
+v = venn3(subsets=(1, 1, 1, 1, 1, 1, 1), set_labels = ('Mic A', 'Mic B', 'Mic C'))
+ 
+# Make all white
+#v.get_patch_by_id('100').set_alpha(1.0)  #dont think this is needed
+v.get_patch_by_id('100').set_color('white')
+v.get_patch_by_id('101').set_color('white')
+v.get_patch_by_id('110').set_color('white')
+v.get_patch_by_id('010').set_color('white')
+v.get_patch_by_id('011').set_color('white')
+v.get_patch_by_id('001').set_color('white')
+v.get_patch_by_id('111').set_color('white')
+
+
+#v.get_label_by_id('100').set_text('Unknown')
+#v.get_label_by_id('A').set_text('Set "A"')
+#add lines between each mic range
+c = venn3_circles(subsets=(1, 1, 1, 1, 1, 1, 1), linestyle='dashed')
+#c[0].set_lw(1.0)
+#c[0].set_ls('dotted')
+ 
+# Add title
+plt.title("Location")
+
+#if bird call was heard, plot venn diagram
+if MicA == MicB == MicC == True:
+    v.get_patch_by_id('111').set_color('blue')
+elif MicA == MicB == True:
+    v.get_patch_by_id('110').set_color('blue')
+elif MicA == MicC == True:
+    v.get_patch_by_id('101').set_color('blue')
+elif MicC == MicB == True:
+    v.get_patch_by_id('011').set_color('blue')
+elif MicA == True:
+    v.get_patch_by_id('100').set_color('blue')
+elif MicB == True:
+    v.get_patch_by_id('010').set_color('blue')
+elif MicC == True:
+    v.get_patch_by_id('001').set_color('blue')
+
+# Show the plot 
+####make into something that front end can see such as a png
+plt.show()
