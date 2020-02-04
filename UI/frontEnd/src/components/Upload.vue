@@ -7,6 +7,8 @@
         Submit
       </button>
       <audio id="soundDisplay"></audio>
+      <h3>Wave</h3>
+      <div id="waveform2"></div>
     </form>
     <div id="file-list-display"></div>
   </div>
@@ -14,6 +16,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import WaveSurfer from "wavesurfer.js";
 
 @Component
 export default class Upload extends Vue {
@@ -60,6 +63,14 @@ export default class Upload extends Vue {
         audio.src = url;
         audio.controls = true;
         document.body.appendChild(audio);
+        /// Creates and displays a Sound Wave for each uploaded file
+        var wavesurfer = WaveSurfer.create({
+          container: "#waveform2",
+          waveColor: "red",
+          progressColor: "black"
+        });
+
+        wavesurfer.load(url);
       });
     };
 
