@@ -6,11 +6,8 @@
       <button type="submit">
         Submit
       </button>
-      <audio id="soundDisplay"></audio>
-      <h3>Wave</h3>
-      <div id="waveform2"></div>
+      <div id="soundDisplay"></div>
     </form>
-    <div id="file-list-display"></div>
   </div>
 </template>
 
@@ -24,7 +21,6 @@ export default class Upload extends Vue {
   mounted() {
     var fileCatcher = document.getElementById("file-catcher");
     var soundFileInput = document.getElementById("sound_files");
-    var fileListDisplay = document.getElementById("file-list-display");
     var soundDisplay = document.getElementById("soundDisplay");
 
     var soundFileList = [];
@@ -50,26 +46,26 @@ export default class Upload extends Vue {
 
     //Displays the names of each of the sound files uploaded
     renderFileList = function() {
-      fileListDisplay.innerHTML = "";
-
+      /// Clears previous uploads
+      soundDisplay!.innerHTML = "";
       soundFileList.forEach(function(file, index) {
         var fileDisplayEl = document.createElement("p");
         fileDisplayEl.innerHTML =
           "Sound File " + (index + 1) + ": " + file.name;
-        fileListDisplay.appendChild(fileDisplayEl);
-        /// Creates a new Audio control on page
+        /// Creates a new Audio control on page for each uploaded file
         const url = URL.createObjectURL(file);
         var audio = new Audio();
         audio.src = url;
         audio.controls = true;
-        document.body.appendChild(audio);
-        /// Creates and displays a Sound Wave for each uploaded file
+        /// Displays the Audio Control, Sound Wave, and file name for each uploaded file
+        soundDisplay!.appendChild(fileDisplayEl);
+        soundDisplay!.appendChild(audio);
+        /// Creates for each uploaded file
         var wavesurfer = WaveSurfer.create({
-          container: "#waveform2",
+          container: "#soundDisplay",
           waveColor: "red",
           progressColor: "black"
         });
-
         wavesurfer.load(url);
       });
     };
