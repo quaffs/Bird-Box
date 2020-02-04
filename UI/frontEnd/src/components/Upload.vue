@@ -6,6 +6,7 @@
       <button type="submit">
         Submit
       </button>
+      <audio id="soundDisplay"></audio>
     </form>
     <div id="file-list-display"></div>
   </div>
@@ -21,6 +22,8 @@ export default class Upload extends Vue {
     var fileCatcher = document.getElementById("file-catcher");
     var soundFileInput = document.getElementById("sound_files");
     var fileListDisplay = document.getElementById("file-list-display");
+    var soundDisplay = document.getElementById("soundDisplay");
+
     var soundFileList = [];
     var renderFileList, sendFile;
 
@@ -38,17 +41,25 @@ export default class Upload extends Vue {
       for (var i = 0; i < soundFileInput.files.length; i++) {
         soundFileList.push(soundFileInput.files[i]);
       }
+
       renderFileList();
     });
 
     //Displays the names of each of the sound files uploaded
     renderFileList = function() {
       fileListDisplay.innerHTML = "";
+
       soundFileList.forEach(function(file, index) {
         var fileDisplayEl = document.createElement("p");
         fileDisplayEl.innerHTML =
           "Sound File " + (index + 1) + ": " + file.name;
         fileListDisplay.appendChild(fileDisplayEl);
+        /// Creates a new Audio control on page
+        const url = URL.createObjectURL(file);
+        var audio = new Audio();
+        audio.src = url;
+        audio.controls = true;
+        document.body.appendChild(audio);
       });
     };
 
