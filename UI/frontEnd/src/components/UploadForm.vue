@@ -270,11 +270,22 @@ export default class Upload extends Vue {
       if (file) formData.append(`file${n + 1}`, file);
     });
     // send post request to back end
-    Vue.axios.post("http://localhost:3000/classify/uploadForm", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
-    });
+    Vue.axios
+      .post("http://localhost:3000/classify/uploadForm", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      // This will get called after response is returned
+      .then(response => {
+        console.log(response);
+      })
+      // This will run if there is a server error
+      .catch(error => {
+        console.log(error);
+      })
+      // This will always run
+      .then(() => {});
   }
   updateInputLabel(id: string, label: string) {
     //@ts-ignore
