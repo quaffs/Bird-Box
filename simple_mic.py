@@ -21,15 +21,19 @@ def main(mic_one, mic_two, mic_three, mic_four, mic_five):
     elif mic_one and mic_two and mic_three and mic_four == True:
         print("0-5 ft")
         print("Center")
+    #Error Mic 5 should detect presence and possbily Mic 4. 
     elif mic_one and mic_two and mic_three == True:
         print("0-10 ft")
         print("Center to NorthWest")
+    #Error Mic 5 should detect presence and possbily Mic 4.
     elif mic_one and mic_three and mic_four == True:
         print("0-10 ft")
         print("Center to SouthWest")
+    #Error Mic 5 should detect presence and possbily Mic 4.
     elif mic_two and mic_three and mic_four == True:
         print("0-10 ft")
         print("Center to SouthEast")
+    #Error Mic 5 should detect presence and possbily Mic 4.
     elif mic_one and mic_two and mic_four == True:
         print("0-10 ft")
         print("Center to NorthEast")
