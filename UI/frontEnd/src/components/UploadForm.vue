@@ -79,39 +79,97 @@
       <button
         v-on:click="submitForm()"
         type="button"
-        class="btn btn-outline-primary"
-      >
+        class="btn btn-outline-primary">
         Submit
       </button>
     </form>
     <br />
-    <label id="sound_label1">
+    <!-- Sound Upload #1 -->
+    <label id="sound_label1" class="hidden">
       Sound File Upload: 1
     </label>
-    <div id="soundDisplay1"></div>
-    <input type="button" id="play_button1" value="Play" disabled="disabled" />
-    <input type="button" id="pause_button1" value="Pause" disabled="disabled" />
-    <input type="button" id="stop_button1" value="Stop" disabled="disabled" />
-    <br />
 
+    <div id="soundDisplay1"></div>
+    <input
+      type="button"
+      id="play_button1"
+      value="Play"
+      disabled="disabled"
+      class="hidden"
+    />
+    <input
+      type="button"
+      id="pause_button1"
+      value="Pause"
+      disabled="disabled"
+      class="hidden"
+    />
+    <input
+      type="button"
+      id="stop_button1"
+      value="Stop"
+      disabled="disabled"
+      class="hidden"
+    />
     <br />
-    <label id="sound_label2">
+    <!-- End Sound Upload #1 -->
+    <br />
+    <!-- Sound Upload #2 -->
+    <label id="sound_label2" class="hidden">
       Sound File Upload: 2
     </label>
     <div id="soundDisplay2"></div>
-    <input type="button" id="play_button2" value="Play" disabled="disabled" />
-    <input type="button" id="pause_button2" value="Pause" disabled="disabled" />
-    <input type="button" id="stop_button2" value="Stop" disabled="disabled" />
+    <input
+      type="button"
+      id="play_button2"
+      value="Play"
+      disabled="disabled"
+      class="hidden"
+    />
+    <input
+      type="button"
+      id="pause_button2"
+      value="Pause"
+      disabled="disabled"
+      class="hidden"
+    />
+    <input
+      type="button"
+      id="stop_button2"
+      value="Stop"
+      disabled="disabled"
+      class="hidden"
+    />
     <br />
-
+    <!-- End Sound Upload #2 -->
     <br />
-    <label id="sound_label3">
+    <!-- Sound Upload #3 -->
+    <label id="sound_label3" class="hidden">
       Sound File Upload: 3
     </label>
     <div id="soundDisplay3"></div>
-    <input type="button" id="play_button3" value="Play" disabled="disabled" />
-    <input type="button" id="pause_button3" value="Pause" disabled="disabled" />
-    <input type="button" id="stop_button3" value="Stop" disabled="disabled" />
+    <input
+      type="button"
+      id="play_button3"
+      value="Play"
+      disabled="disabled"
+      class="hidden"
+    />
+    <input
+      type="button"
+      id="pause_button3"
+      value="Pause"
+      disabled="disabled"
+      class="hidden"
+    />
+    <input
+      type="button"
+      id="stop_button3"
+      value="Stop"
+      disabled="disabled"
+      class="hidden"
+    />
+    <!-- End Sound Upload #3 -->
   </div>
 </template>
 
@@ -135,25 +193,25 @@ export default class Upload extends Vue {
     this.generateSoundWaves(url, n);
   }
 
-  renderFileList() {
-    /// Clears previous uploads
-    var soundDisplay = document.getElementById("soundDisplay" + n);
-    soundDisplay!.innerHTML = "";
-    this.files.forEach((file, n) => {
-      const url = URL.createObjectURL(file);
-      this.generateSoundWaves(url, n);
-    });
-  }
+  // renderFileList() {
+  // /// Clears previous uploads
+  //var soundDisplay = document.getElementById("soundDisplay" + n);
+  //soundDisplay!.innerHTML = "";
+  //this.files.forEach((file, n) => {
+  //const url = URL.createObjectURL(file);
+  //this.generateSoundWaves(url, n);
+  //});
+  //}
 
   generateSoundWaves(url: string, n: any) {
     var soundDisplay = document.getElementById("soundDisplay" + n);
     soundDisplay!.innerHTML = "";
-
     var wavesurfer = WaveSurfer.create({
       container: "#soundDisplay" + n,
       waveColor: "red",
       progressColor: "black"
     });
+    document.getElementById("sound_label" + n)!.className = "";
     wavesurfer.load(url);
 
     var buttons = {
@@ -161,6 +219,9 @@ export default class Upload extends Vue {
       pause: document.getElementById("pause_button" + n) as HTMLInputElement,
       stop: document.getElementById("stop_button" + n) as HTMLInputElement
     };
+    buttons.stop.className = "";
+    buttons.pause.className = "";
+    buttons.play.className = "";
 
     buttons.play.addEventListener(
       "click",
@@ -225,5 +286,10 @@ export default class Upload extends Vue {
 <style lang="scss">
 form {
   text-align: left;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important; /* Prevent element from affecting the box model, e.g. whitespace between visible, surrounding elements  */
 }
 </style>
