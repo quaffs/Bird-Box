@@ -79,7 +79,8 @@
       <button
         v-on:click="submitForm()"
         type="button"
-        class="btn btn-outline-primary">
+        class="btn btn-outline-primary"
+      >
         Submit
       </button>
     </form>
@@ -193,36 +194,32 @@ export default class Upload extends Vue {
     this.generateSoundWaves(url, n);
   }
 
-  // renderFileList() {
-  // /// Clears previous uploads
-  //var soundDisplay = document.getElementById("soundDisplay" + n);
-  //soundDisplay!.innerHTML = "";
-  //this.files.forEach((file, n) => {
-  //const url = URL.createObjectURL(file);
-  //this.generateSoundWaves(url, n);
-  //});
-  //}
-
   generateSoundWaves(url: string, n: any) {
     var soundDisplay = document.getElementById("soundDisplay" + n);
+    // If a new sound file is uploaded, clear the previous
     soundDisplay!.innerHTML = "";
+    // Create the Sound Wave
     var wavesurfer = WaveSurfer.create({
       container: "#soundDisplay" + n,
       waveColor: "red",
       progressColor: "black"
     });
+    // Display the Sound File Upload Label
     document.getElementById("sound_label" + n)!.className = "";
+    // Load the file for the Sound Wave
     wavesurfer.load(url);
-
+    // Initialize the buttons used to control the sound wave audio
     var buttons = {
       play: document.getElementById("play_button" + n) as HTMLInputElement,
       pause: document.getElementById("pause_button" + n) as HTMLInputElement,
       stop: document.getElementById("stop_button" + n) as HTMLInputElement
     };
+    // Make the Sound Wave Audio Buttons Visible
     buttons.stop.className = "";
     buttons.pause.className = "";
     buttons.play.className = "";
 
+    // If play is pressed, play audio
     buttons.play.addEventListener(
       "click",
       function() {
@@ -235,6 +232,7 @@ export default class Upload extends Vue {
       false
     );
 
+    // If pause is pressed, pause audio
     buttons.pause.addEventListener(
       "click",
       function() {
@@ -246,6 +244,7 @@ export default class Upload extends Vue {
       false
     );
 
+    // If stop is pressed, reset sound file to play from beginning
     buttons.stop.addEventListener(
       "click",
       function() {
@@ -258,6 +257,7 @@ export default class Upload extends Vue {
       false
     );
 
+    // Once a sound file is successfully displayed, enable the "play" audio button
     wavesurfer.on("ready", function() {
       buttons.play.disabled = false;
     });
@@ -288,8 +288,9 @@ form {
   text-align: left;
 }
 
+/* Makes the element invisible */
 .hidden {
   display: none !important;
-  visibility: hidden !important; /* Prevent element from affecting the box model, e.g. whitespace between visible, surrounding elements  */
+  visibility: hidden !important;
 }
 </style>
