@@ -51,18 +51,12 @@ router.post("/uploadForm", fileUpload, function(req, res, next) {
         classifications.push(classify(path.join(curAudioDir, `file${j}Segs`, `seg${i.toString().padStart(3, '0')}.wav`)));
       }
       // send to direction and distance algorithm
-      results.classifyResults.push(distanceAndDirection(classifications));
+      classifySingleResult = distanceAndDirection(classifications, i);
+      if (classifySingleResult.classification != "") {
+        results.classifyResults.push(classifySingleResult);
+      }  
     }
-      
-    // send ca
   }
-  // run classification algorithm for each call
-  
-  // for (var file in req.files) {
-  //   var filePath =
-  //   classifications.push(filePath);
-  // }
-
   // run direction/distance algorithm
   Object.assign(results, processResult);
   res.json(results);
@@ -145,7 +139,6 @@ function processFiles(files, audioDir) {
     // segment file
     segmentDir = `${newPath}Segs`;
     response.segResults.push(segmentFiles(`${newPath}.wav`, segmentDir, 10));
-    // console.log(path.join(audioDir, `${key}Segs`))
     fileCounts.push(fs.readdirSync(path.join(audioDir, `${key}Segs`)).length);
   }
   // make sure files process correctly
@@ -197,12 +190,36 @@ function resultsProcessedCorrect(segResults) {
 }
 
 function classify(filePath) {
-  return 1;
+  var result = {callDetected: -1, classification: "null"};
+  var process = child.spawnSync("python3", ["./classify.py", filePath]);
+  if (process.status === 0) {
+    var lines = process.stdout.toString().split("\n");
+    result.callDetected = parseInt(lines[0]);
+    result.classification = lines[1];
+  }
+  return result;
 }
 
-function distanceAndDirection(classification) {
-  var results = {classification: "", distance: 0, direction: "", timestamp: ""};
-  return results;
+function distanceAndDirection(classifications, i) {
+  var result = {classification: "", distance: 0, direction: "", timeStart: 0, timeEnd: 0};
+  var classificationArray = [];
+  classifications.forEach(e => {
+    if (e.classification != "null")
+      result.classification = e.classification;
+    classificationArray.push(e.callDetected);
+  });
+  classificationArraySum = classificationArray.reduce((a, b) => a + b, 0);
+  if (classificationArraySum > 0) {
+    var process = child.spawnSync("python3", ["./distanceAndDirection.py", classificationArray.join(" ")]);
+    if (process.status === 0) {
+      var lines = process.stdout.toString().split("\n");
+      result.distance = parseInt(lines[0]);
+      result.direction = lines[1];
+      result.timeStart = i*10;
+      result.timeEnd = i*10+10;
+    }
+  }
+  return result;
 }
 
 module.exports = router;
