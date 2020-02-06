@@ -1,6 +1,6 @@
 <template>
   <div class="wave">
-    <br/>
+    <br />
     <h3>Wave</h3>
     <div id="waveform"></div>
   </div>
