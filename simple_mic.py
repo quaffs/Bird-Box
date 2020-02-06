@@ -91,11 +91,15 @@ def main(mic_one, mic_two, mic_three, mic_four, mic_five):
 # calling the main functions 
 if __name__ == "__main__":
   # Take in the arugments from the Backend as sys arguments 
-  mic_one = True if sys.argv[1] == '1' else False
-  mic_two = True if sys.argv[2] == '1' else False 
-  mic_three = True if sys.argv[3] == '1' else False 
-  mic_four = True if sys.argv[4] == '1' else False
-  mic_five = True if sys.argv[5] == '1' else False
+  system_input = sys.argv[1]
+  system_input = system_input.split(' ')
+  
+  mic_one = True if system_input[0] == '1' else False
+  mic_two = True if system_input[1] == '1' else False
+  mic_three = True if system_input[2] == '1' else False
+  mic_four = True if system_input[3] == '1' else False
+  mic_five = True if system_input[4] == '1' else False 
+
   # passing the sys arguments to the main function 
   main(mic_one, mic_two, mic_three, mic_four, mic_five)
 
