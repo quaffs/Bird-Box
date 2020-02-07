@@ -30,7 +30,10 @@ router.get("/exampleProcess", function(req, res, next) {
 var fileUpload = upload.fields([
   { name: "file1" },
   { name: "file2" },
-  { name: "file3" }
+  { name: "file3" },
+  { name: "file4" },
+  { name: "file5" },
+
 ]);
 router.post("/uploadForm", fileUpload, function(req, res, next) {
   // create ID for process and create directory
