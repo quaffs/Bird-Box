@@ -1,5 +1,6 @@
 <template>
-  <div class="upload2">
+  <div class="uploadForm">
+    <div id="alert-panel"></div>
     <form>
       <div class="form-group">
         <form>
@@ -145,10 +146,25 @@ export default class Upload extends Vue {
       // This will get called after response is returned
       .then(response => {
         console.log(response);
+        let error = response.data.error;
+        let errorMsg = response.data.errorMsg;
+        let alert = "";
+        if (error) {
+          alert = `<div class="alert alert-warning" role="alert">There was an errorL ${errorMsg}</div>`;
+        } else {
+          alert = `<div class="alert alert-success" role="alert">File was successfully processed!</div>`;
+        }
+
+        (document.getElementById(
+          "alert-panel"
+        ) as HTMLElement).innerHTML = alert;
       })
       // This will run if there is a server error
       .catch(error => {
-        console.log(error);
+        let alert = `<div class="alert alert-danger" role="alert">There was an interal server error. Unable to process files.</div>`;
+        (document.getElementById(
+          "alert-panel"
+        ) as HTMLElement).innerHTML = alert;
       })
       // This will always run
       .then(() => {});
