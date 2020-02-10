@@ -1,7 +1,8 @@
 FROM node:10.18.1
 
+RUN apt-get update && apt-get install -y ffmpeg
 
-RUN npm install -g nodemon 
+RUN npm install -g nodemon
 
 RUN npm config set registry https://registry.npmjs.org
 
