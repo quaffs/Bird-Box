@@ -1,6 +1,11 @@
+# This is set to version 3 of Docker Compose
 version: "3"
+# The services to start the applications 
 services:
-
+  # Description: This is setting up the Vue(Frontend) container that includes the custom Dockerfile image for Frontend. 
+  # Network: This has exposed ports to be accessed from the localhost. This has a frontend network and a combined network. 
+  # Combined network allows the frontend and the backend to communicate with each other. This allows security isolation between the containers.
+  # Deploy: has 1 replica and a restart policy to restart the container just in case if it fails or stops on its own. 
   Vue:
     image: frontend:latest
     ports: 
@@ -13,6 +18,9 @@ services:
       restart_policy:
         condition: on-failure 
 
+  # Description: This is setting up the Node(Backend) container that includes the custom Dockerfile image for Backend. 
+  # Network: This exposed port 3000 to be accessed from our localhost to the internet. This has the backend network and a combined network.
+  # Combined network allows the frontend and backend to communicate with each other. This allows security isolation between the containers.
   Node:
     image: backend:latest
     ports:
@@ -29,7 +37,7 @@ services:
 
 
   
-
+# These are the networks that the applications used to communicate with each other.
 networks:
   frontend:
   backend:

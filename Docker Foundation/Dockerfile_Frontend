@@ -1,5 +1,8 @@
-FROM vuejs/ci:latest 
+# Description: This creates the custom image to create the containter along with setting up the applications
+# along with their dependencies, libraries, packages, etc.
+# This also exposed port to be accessed from the localhost 
 
+FROM vuejs/ci:latest 
 
 RUN mkdir -p /app
 
