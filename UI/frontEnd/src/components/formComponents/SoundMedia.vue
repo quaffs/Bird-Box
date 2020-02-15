@@ -1,7 +1,7 @@
 <template>
   <div class="SoundMedia">
     <label :id="`sound_label${n}`" class="hidden">
-      Sound File Upload: {{ n }}
+      Sound File Upload: {{ fileDirection }}
     </label>
 
     <div :id="`soundDisplay${n}`"></div>
@@ -35,5 +35,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component
 export default class SoundMedia extends Vue {
   @Prop() private n!: number;
+  @Prop() private fileDirection!: string;
 }
 </script>

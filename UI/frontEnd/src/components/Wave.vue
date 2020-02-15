@@ -1,7 +1,6 @@
 <template>
   <div class="wave">
     <br />
-    <h3>Wave</h3>
     <div id="waveform"></div>
   </div>
 </template>
@@ -26,6 +25,9 @@ export default class Wave extends Vue {
       progressColor: "black"
     });
     wavesurfer.load("northern-cardinal-dvg1.wav");
+    wavesurfer.on("ready", function() {
+    buttons.play.disabled = false;
+});
   }
 }
 </script>

@@ -4,15 +4,15 @@
     <form>
       <div class="form-group">
         <form>
-          <SoundInput n="1" />
+          <SoundInput n="1" fileDirection="North" />
           <br />
-          <SoundInput n="2" />
+          <SoundInput n="2" fileDirection="East" />
           <br />
-          <SoundInput n="3" />
+          <SoundInput n="3" fileDirection="South" />
           <br />
-          <SoundInput n="4" />
+          <SoundInput n="4" fileDirection="West" />
           <br />
-          <SoundInput n="5" />
+          <SoundInput n="5" fileDirection="Central" />
         </form>
       </div>
       <button
@@ -24,15 +24,15 @@
       </button>
     </form>
     <br />
-    <SoundMedia n="1" />
+    <SoundMedia n="1" fileDirection="North" />
     <br />
-    <SoundMedia n="2" />
+    <SoundMedia n="2" fileDirection="East" />
     <br />
-    <SoundMedia n="3" />
+    <SoundMedia n="3" fileDirection="South" />
     <br />
-    <SoundMedia n="4" />
+    <SoundMedia n="4" fileDirection="West" />
     <br />
-    <SoundMedia n="5" />
+    <SoundMedia n="5" fileDirection="Central" />
   </div>
 </template>
 
