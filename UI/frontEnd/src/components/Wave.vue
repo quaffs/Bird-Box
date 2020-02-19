@@ -34,7 +34,7 @@ export default class Wave extends Vue {
     wavesurfer.load("northern-cardinal-dvg1.wav");
   }
 
-//Generate the SoundWave and Allow user to play/pause audio
+  //Generate the SoundWave and Allow user to play/pause audio
   generateSoundWaves(n: any) {
     var soundDisplay = document.getElementById(
       "sound_label" + n
