@@ -10,7 +10,6 @@ loaded_model = pickle.load(open(filename, 'rb'))
 
 # Testing that the model loads and predicts correctly
 input_file = sys.argv[1]
-print(input_file)
 result = read(input_file)
 result = np.array(result[1],dtype=float)
 result = result.flatten()

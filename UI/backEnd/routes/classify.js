@@ -37,15 +37,16 @@ router.post("/uploadForm", fileUpload, function(req, res, next) {
           classify(
             path.join(
               curAudioDir,
-              `file${j+1}Segs`,
+              `file${j + 1}Segs`,
               `seg${i.toString().padStart(3, "0")}.wav`
             )
           )
         );
       }
       // send to direction and distance algorithm
+
       classifySingleResult = distanceAndDirection(classifications, i);
-      if (classifySingleResult.classification != "") {
+      if (classifySingleResult.direction != "") {
         results.classifyResults.push(classifySingleResult);
       }
     }
@@ -116,19 +117,19 @@ function resultsProcessedCorrect(segResults) {
 }
 
 function classify(filePath) {
+  console.log(filePath);
   var result = { callDetected: -1, classification: "null" };
   var process = child.spawnSync("python3", ["./classify.py", filePath]);
-  console.log(process.stderr.toString())
   if (process.status === 0) {
     var lines = process.stdout.toString().split("\n");
     result.callDetected = parseInt(lines[0]);
     result.classification = lines[1];
   }
-  console.log(result)
   return result;
 }
 
 function distanceAndDirection(classifications, i) {
+  console.log(classifications);
   var result = {
     classification: "",
     distance: 0,
@@ -138,7 +139,8 @@ function distanceAndDirection(classifications, i) {
   };
   var classificationArray = [];
   classifications.forEach(e => {
-    if (e.classification != "null") result.classification = e.classification;
+    if (e.classification != "Non-Cardinal")
+      result.classification = e.classification;
     classificationArray.push(e.callDetected);
   });
   classificationArraySum = classificationArray.reduce((a, b) => a + b, 0);
