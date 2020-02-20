@@ -37,7 +37,7 @@ router.post("/uploadForm", fileUpload, function(req, res, next) {
           classify(
             path.join(
               curAudioDir,
-              `file${j}Segs`,
+              `file${j+1}Segs`,
               `seg${i.toString().padStart(3, "0")}.wav`
             )
           )
@@ -118,11 +118,13 @@ function resultsProcessedCorrect(segResults) {
 function classify(filePath) {
   var result = { callDetected: -1, classification: "null" };
   var process = child.spawnSync("python3", ["./classify.py", filePath]);
+  console.log(process.stderr.toString())
   if (process.status === 0) {
     var lines = process.stdout.toString().split("\n");
     result.callDetected = parseInt(lines[0]);
     result.classification = lines[1];
   }
+  console.log(result)
   return result;
 }
 
