@@ -24,6 +24,9 @@
       </button>
     </form>
     <br />
+    <ReadBackend />
+    <p id="response-list-display"></p>
+    <br />
     <SoundMedia n="1" fileDirection="Microphone 1" />
     <br />
     <SoundMedia n="2" fileDirection="Microphone 2" />
@@ -41,15 +44,18 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import WaveSurfer from "wavesurfer.js";
 import SoundInput from "@/components/formComponents/SoundInput.vue";
 import SoundMedia from "@/components/formComponents/SoundMedia.vue";
+import ReadBackend from "@/components/ReadBackend.vue";
 
 @Component({
   components: {
     SoundInput,
-    SoundMedia
+    SoundMedia,
+    ReadBackend
   }
 })
 export default class Upload extends Vue {
   private files: Array<File | undefined> = [undefined, undefined, undefined];
+
   // this runs when the component is loaded
   mounted() {}
 
@@ -131,6 +137,7 @@ export default class Upload extends Vue {
   }
 
   submitForm() {
+    var responseListDisplay = document.getElementById("response-list-display");
     let formData = new FormData();
     // upload files to form data
     this.files.forEach((file, n) => {
@@ -153,8 +160,60 @@ export default class Upload extends Vue {
           alert = `<div class="alert alert-warning" role="alert">There was an errorL ${errorMsg}</div>`;
         } else {
           alert = `<div class="alert alert-success" role="alert">File was successfully processed!</div>`;
+          console.log(response.data);
+          if (response.data.classifyResults.length > 0) {
+            //Grabs the file name from the response
+            var fileName = response.data;
+            var uploadResultsArray = [];
+            // For each "result" inside of results, add it to results array
+            for (
+              var i = 0;
+              i < Object.keys(response.data.classifyResults).length;
+              i++
+            ) {
+              uploadResultsArray.push(
+                '<p class="borderexample">' +
+                  "<u>Classification:</u> " +
+                  response.data.classifyResults[i].classification +
+                  "</u> " +
+                  "<br><u>Time Start:</u> " +
+                  response.data.classifyResults[i].timeStart +
+                  "</u>" +
+                  "&nbsp;  <u> Time End:</u> " +
+                  response.data.classifyResults[i].timeEnd +
+                  "</u> " +
+                  "<br><u>Distance:</u> " +
+                  response.data.classifyResults[i].distance +
+                  " feet from Center Microphone</u> " +
+                  "<br><u>Direction:</u> " +
+                  response.data.classifyResults[i].direction +
+                  " of Center Microphone"
+              );
+            }
+            var countOfResults = response.data.classifyResults.length;
+            if (countOfResults == 1) {
+              // Display Respose on Screen
+              responseListDisplay!.innerHTML =
+                '<br><font size="5">' +
+                countOfResults +
+                " Call Detected! </font>" +
+                "</p>" +
+                uploadResultsArray.join("");
+            } else {
+              // Display Respose on Screen
+              responseListDisplay!.innerHTML =
+                '<br><font size="5">' +
+                countOfResults +
+                " Calls Detected! </font>" +
+                "</p>" +
+                uploadResultsArray.join("");
+            }
+          } else {
+            // Display Respose on Screen
+            responseListDisplay!.innerHTML =
+              '<br><font size="5">No Call Detected! </font>';
+          }
         }
-
         (document.getElementById(
           "alert-panel"
         ) as HTMLElement).innerHTML = alert;
@@ -175,6 +234,13 @@ export default class Upload extends Vue {
 <style lang="scss">
 form {
   text-align: left;
+}
+
+.borderexample {
+  border-style: solid;
+  border-color: #287ec7;
+  border-width: thick;
+  padding: 1%;
 }
 
 /* Makes the element invisible */
