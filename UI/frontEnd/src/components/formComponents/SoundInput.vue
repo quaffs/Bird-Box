@@ -33,7 +33,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class SoundInput extends Vue {
   mounted() {
     var newThing = document.getElementById("file-label");
-    newThing!.innerText = "YOOO";
   }
   @Prop() private n!: number;
   @Prop() private fileDirection!: string;
