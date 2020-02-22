@@ -2,9 +2,9 @@
   <div class="SoundInput">
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text" :id="`file${n}-label`"
-          >File {{ n }}</span
-        >
+        <span class="input-group-text" :id="`file${n}-label`">{{
+          fileDirection
+        }}</span>
       </div>
       <div class="custom-file">
         <input
@@ -31,7 +31,11 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class SoundInput extends Vue {
+  mounted() {
+    var newThing = document.getElementById("file-label");
+  }
   @Prop() private n!: number;
+  @Prop() private fileDirection!: string;
 
   changeFile(n: number) {
     let input = this.$refs["file-input"];

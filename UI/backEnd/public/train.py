@@ -1,0 +1,2 @@
+from pyAudioAnalysis import audioTrainTest as aT
+aT.featureAndTrain(["/mnt/d/Code/School/CSC404/Bird-Box/UI/backEnd/Python/SoundClassification/Classifications/Cardinal","/mnt/d/Code/School/CSC404/Bird-Box/UI/backEnd/Python/SoundClassification/Classifications/OtherBird","/mnt/d/Code/School/CSC404/Bird-Box/UI/backEnd/Python/SoundClassification/Classifications/Rustling","/mnt/d/Code/School/CSC404/Bird-Box/UI/backEnd/Python/SoundClassification/Classifications/Silence"], 1.0, 1.0, aT.shortTermWindow, aT.shortTermStep, "svm", "svmCalls", True)

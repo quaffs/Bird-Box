@@ -11,8 +11,10 @@
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
 import Wave from "@/components/Wave.vue";
+import SoundMedia from "@/components/formComponents/SoundMedia.vue";
 
 export default {
+  mounted() {},
   // name: "home"
   name: "home",
   components: {
