@@ -151,7 +151,7 @@ function distanceAndDirection(classifications, i) {
     ]);
     if (process.status === 0) {
       var lines = process.stdout.toString().split("\n");
-      result.distance = parseInt(lines[0]);
+      result.distance = lines[0];
       result.direction = lines[1];
       result.timeStart = i * 10;
       result.timeEnd = i * 10 + 10;

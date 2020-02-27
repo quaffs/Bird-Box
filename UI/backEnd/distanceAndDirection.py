@@ -10,91 +10,91 @@ import sys
 # Main argument that tells the distance range and the direction of the bird sounds 
 def main(mic_one, mic_two, mic_three, mic_four, mic_five):
     if mic_one and mic_two and mic_three and mic_four and mic_five:
-        print("0-20 ft")
+        print("0-20")
         print("Center")
     elif mic_one and mic_two and mic_four and mic_five:
-        print("15-35 ft")
+        print("15-35")
         print("NorthEast")
     elif mic_two and mic_three and mic_four and mic_five:
-        print("15-35 ft")
+        print("15-35")
         print("SouthEast")
     elif mic_one and mic_three and mic_four and mic_five:
-        print("15-35 ft")
+        print("15-35")
         print("SouthWest")
     elif mic_one and mic_two and mic_three and mic_five:
-        print("15-35 ft")
+        print("15-35")
         print("NorthWest")
     #Error Mic 5 should detect presence  
     elif mic_one and mic_two and mic_three and mic_four:
-        print("0-20 ft")
+        print("0-20")
         print("Center")
     #Error Mic 5 should detect presence and possibly Mic 4. 
     elif mic_one and mic_two and mic_three:
-        print("0-35 ft")
+        print("0-35")
         print("Center to NorthWest")
     #Error Mic 5 should detect presence and possibly Mic 4.
     elif mic_one and mic_three and mic_four:
-        print("0-35 ft")
+        print("0-35")
         print("Center to SouthWest")
     #Error Mic 5 should detect presence and possibly Mic 4.
     elif mic_two and mic_three and mic_four:
-        print("0-35 ft")
+        print("0-35")
         print("Center to SouthEast")
     #Error Mic 5 should detect presence and possibly Mic 4.
     elif mic_one and mic_two and mic_four:
-        print("0-35 ft")
+        print("0-35")
         print("Center to NorthEast")
     elif mic_one and mic_two and mic_five:
-        print("20-45 ft")
+        print("20-45")
         print("North")
     elif mic_two and mic_four and mic_five:
-        print("20-45 ft")
+        print("20-45")
         print("East")
     elif mic_three and mic_four and mic_five:
-        print("20-45 ft")
+        print("20-45")
         print("South")
     elif mic_one and mic_three and mic_five:
-        print("20-45 ft")
+        print("20-45")
         print("West")
     elif mic_one and mic_two:
-        print("45-55 ft")
+        print("45-55")
         print("North")
     elif mic_two and mic_five:
-        print("35-45 ft")
+        print("35-45")
         print("NorthEast")
     elif mic_two and mic_four:
-        print("45-55 ft")
+        print("45-55")
         print("East")
     elif mic_four and mic_five:
-        print("35-45 ft")
+        print("35-45")
         print("SouthEast")
     elif mic_three and mic_four:
-        print("45-55 ft")
+        print("45-55")
         print("South")
     elif mic_three and mic_five:
-        print("35-45 ft")
+        print("35-45")
         print("SouthWest")
     elif mic_one and mic_three:
-        print("45-55 ft")
+        print("45-55")
         print("West")
     elif mic_one and mic_five:
-        print("35-45 ft")
+        print("35-45")
         print("NorthWest")
     elif mic_two:
-        print("45-75 ft")
+        print("45-75")
         print("NorthEast")
     elif mic_four:
-        print("45-75 ft")
+        print("45-75")
         print("SouthEast")
     elif mic_three:
-        print("45-75 ft")
+        print("45-75")
         print("SouthWest")
     elif mic_one:
-        print("45-75 ft")
+        print("45-75")
         print("NorthWest")
     #Error 1 or more other mics should be detected
     elif mic_five:
-        print ("0-45 ft")
+        print ("0-45")
         print ("Center")
         
 # calling the main functions 

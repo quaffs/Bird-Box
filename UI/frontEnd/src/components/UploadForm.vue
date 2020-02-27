@@ -184,10 +184,9 @@ export default class Upload extends Vue {
                   "</u> " +
                   "<br><u>Distance:</u> " +
                   response.data.classifyResults[i].distance +
-                  " feet from Center Microphone</u> " +
+                  " feet from the center" +
                   "<br><u>Direction:</u> " +
-                  response.data.classifyResults[i].direction +
-                  " of Center Microphone"
+                  response.data.classifyResults[i].direction
               );
             }
             var countOfResults = response.data.classifyResults.length;
