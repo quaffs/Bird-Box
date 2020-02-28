@@ -125,6 +125,9 @@ function classify(filePath) {
     result.callDetected = parseInt(lines[0]);
     result.classification = lines[1];
   }
+  else {
+    console.log(result.stderr.toString());
+  }
   return result;
 }
 
@@ -155,6 +158,8 @@ function distanceAndDirection(classifications, i) {
       result.direction = lines[1];
       result.timeStart = i * 10;
       result.timeEnd = i * 10 + 10;
+    }  else {
+      console.log(result.stderr.toString());
     }
   }
   return result;
